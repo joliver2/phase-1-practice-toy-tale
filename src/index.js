@@ -35,6 +35,19 @@ getAllToys()
 
 document.querySelector('.add-toy-form').addEventListener('submit', handleNewToySubmit)
 
+function addToy(toy) {
+  fetch("http://localhost:3000/toys",{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: "application/json"
+    },
+    body: JSON.stringify(toy)
+  })
+  .then(res => res.json())
+  .then(toys => console.log(toys))
+}
+
 // Create toy object from form
 function handleNewToySubmit(e) {
   e.preventDefault()
@@ -46,18 +59,4 @@ function handleNewToySubmit(e) {
   renderOneToy(toyObject)
   addToy(toyObject)
 }
-
-function addToy(toy) {
-  fetch("http://localhost:3000/toys",{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': "application/json"
-    },
-    body: JSON.stringify(toy)
-})
-  .then(res => res.json())
-  .then(toys => console.log(toys))
-}
-
 });
